@@ -1,0 +1,43 @@
+{
+    "title": "Oct_10_BenJam_MM1_80p5_7-4",
+    "initialBpm": 120.0,
+    "initialBeatsPerMeasure": 4,
+    "changes": [
+        {
+            "type": 2,
+            "targetMeasure": 1,
+            "newBpm": 80.5,
+            "newBeatsPerMeasure": 7,
+            "isProcessed": false,
+            "description": "",
+            "hasTempo": true,
+            "hasTimeSignature": true,
+            "hasAudioEvent": false,
+            "hasVisualEvent": false,
+            "muteAudio": false,
+            "hideVisual": false,
+            "enableNotifications": false,
+            "advanceNotificationMeasures": 1,
+            "customNotificationMessage": "",
+            "isUrgent": false
+        },
+        {
+            "type": 4,
+            "targetMeasure": 1,
+            "newBpm": 120.0,
+            "newBeatsPerMeasure": 0,
+            "isProcessed": false,
+            "description": "",
+            "hasTempo": false,
+            "hasTimeSignature": false,
+            "hasAudioEvent": true,
+            "hasVisualEvent": false,
+            "muteAudio": true,
+            "hideVisual": false,
+            "enableNotifications": false,
+            "advanceNotificationMeasures": 1,
+            "customNotificationMessage": "",
+            "isUrgent": false
+        }
+    ]
+}
