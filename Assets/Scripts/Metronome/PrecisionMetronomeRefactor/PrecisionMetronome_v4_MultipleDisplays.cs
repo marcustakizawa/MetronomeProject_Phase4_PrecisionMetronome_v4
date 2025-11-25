@@ -1,4 +1,5 @@
-﻿using ChangeComposer.Data;
+﻿
+using ChangeComposer.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -166,6 +167,14 @@ public class PrecisionMetronome_v4_MultipleDisplays : MonoBehaviour {
         if (beatsInput != null) {
             beatsInput.text = _beatsPerMeasure.ToString();
             beatsInput.onEndEdit.AddListener(OnBeatsInputChanged);
+        }
+
+        // Initialize time signature visual controllers
+        foreach (var controller in timeSignatureVisualControllers) {
+            if (controller != null) {
+                controller.SetTimeSignature(_beatsPerMeasure);
+                Debug.Log($"Initialized TimeSignatureVisualController with {_beatsPerMeasure} beats per measure");
+            }
         }
 
         // Initial UI update

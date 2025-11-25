@@ -13,7 +13,7 @@ public class TimeSignatureContainer {
     [Tooltip("The GameObject container for this time signature")]
     public GameObject container;
 
-    [Tooltip("Array of Image components representing each beat (must match beatsPerMeasure count)")]
+    [Tooltip("Array of Image components - must have AT LEAST as many as beatsPerMeasure (extras will be ignored)")]
     public Image[] beatIndicators;
 
     /// <summary>
@@ -22,11 +22,13 @@ public class TimeSignatureContainer {
     public bool IsValid() {
         if (container == null) return false;
         if (beatIndicators == null || beatIndicators.Length == 0) return false;
-        if (beatIndicators.Length != beatsPerMeasure) return false;
 
-        // Check all images are assigned
-        foreach (var indicator in beatIndicators) {
-            if (indicator == null) return false;
+        // Must have AT LEAST as many indicators as beats per measure
+        if (beatIndicators.Length < beatsPerMeasure) return false;
+
+        // Check that at least the first beatsPerMeasure images are assigned
+        for (int i = 0; i < beatsPerMeasure; i++) {
+            if (beatIndicators[i] == null) return false;
         }
 
         return true;
@@ -50,7 +52,7 @@ public class TimeSignatureVisualController : MonoBehaviour {
     // Runtime tracking
     private Dictionary<int, GameObject> containersByBeats;
     private Dictionary<int, Image[]> indicatorsByBeats;
-    private int currentBeatsPerMeasure = 4;
+    private int currentBeatsPerMeasure = 1;  // Start at 1 to avoid early confusion
     private GameObject activeContainer;
     private Image[] activeIndicators;
 
@@ -106,6 +108,11 @@ public class TimeSignatureVisualController : MonoBehaviour {
             return;
         }
 
+        // IMPORTANT: Reset the old container completely before switching
+        if (activeIndicators != null) {
+            ResetAllIndicatorsInArray(activeIndicators);
+        }
+
         // Deactivate old container
         if (activeContainer != null) {
             activeContainer.SetActive(false);
@@ -117,8 +124,8 @@ public class TimeSignatureVisualController : MonoBehaviour {
         activeIndicators = indicatorsByBeats[beatsPerMeasure];
         activeContainer.SetActive(true);
 
-        // Reset all indicators to default color
-        ResetAllIndicators();
+        // Reset all indicators in the new container to default color
+        ResetAllIndicatorsInArray(activeIndicators);
 
         Debug.Log($"Switched to {beatsPerMeasure}/4 time signature");
     }
@@ -139,8 +146,8 @@ public class TimeSignatureVisualController : MonoBehaviour {
             return;
         }
 
-        // Step 1: Reset ALL indicators to default color
-        ResetAllIndicators();
+        // Step 1: Reset ALL indicators to default color (clears ghost colors)
+        ResetAllIndicatorsInArray(activeIndicators);
 
         // Step 2: Determine which color to use for this beat
         Color beatColor = GetColorForBeat(beatNumber);
@@ -153,13 +160,25 @@ public class TimeSignatureVisualController : MonoBehaviour {
 
     /// <summary>
     /// Reset all indicators in the active container to default color
+    /// FIXED: Resets ALL indicators in array, not just first currentBeatsPerMeasure
+    /// This prevents ghost colors when switching from higher to lower beat counts
     /// </summary>
     private void ResetAllIndicators() {
         if (activeIndicators == null) return;
+        ResetAllIndicatorsInArray(activeIndicators);
+    }
 
-        foreach (Image indicator in activeIndicators) {
-            if (indicator != null) {
-                indicator.color = defaultColor;
+    /// <summary>
+    /// Helper method to reset all indicators in a given array
+    /// </summary>
+    private void ResetAllIndicatorsInArray(Image[] indicators) {
+        if (indicators == null) return;
+
+        // Reset ALL indicators in the array, not just currentBeatsPerMeasure
+        // This is critical to clear ghost colors from previous time signatures
+        for (int i = 0; i < indicators.Length; i++) {
+            if (indicators[i] != null) {
+                indicators[i].color = defaultColor;
             }
         }
     }
@@ -224,10 +243,10 @@ public class TimeSignatureVisualController : MonoBehaviour {
         // Validate configurations in the editor
         foreach (var tsContainer in timeSignatureContainers) {
             if (tsContainer.beatIndicators != null &&
-                tsContainer.beatIndicators.Length != tsContainer.beatsPerMeasure) {
+                tsContainer.beatIndicators.Length < tsContainer.beatsPerMeasure) {
                 Debug.LogWarning($"TimeSignatureContainer for {tsContainer.beatsPerMeasure}/4: " +
                                $"beatIndicators array length ({tsContainer.beatIndicators.Length}) " +
-                               $"does not match beatsPerMeasure ({tsContainer.beatsPerMeasure})");
+                               $"is less than beatsPerMeasure ({tsContainer.beatsPerMeasure}). Need at least {tsContainer.beatsPerMeasure} indicators.");
             }
         }
     }
