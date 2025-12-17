@@ -477,7 +477,10 @@ public class PrecisionMetronome_v4_MultipleDisplays : MonoBehaviour {
             scheduler.SetCurrentMeasure(measure);
         }
 
-        _nextBeatTime = AudioSettings.dspTime + 0.1;
+        // ADD THIS CONDITIONAL CHECK (like StartMetronome has) to fix staggered start
+        if (_nextBeatTime <= AudioSettings.dspTime) {
+            _nextBeatTime = AudioSettings.dspTime + 0.1;
+        }
         ScheduleNextBeat();
         UpdateUI();
         OnStarted?.Invoke();

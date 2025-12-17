@@ -2843,8 +2843,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scheduler: {fileID: 179243328}
   stateManager: {fileID: 179243330}
-  strongBeatClip: {fileID: 8300000, guid: f7fb4f43149f57148bf9f0bf464ef55c, type: 3}
-  regularBeatClip: {fileID: 8300000, guid: 1fd0753522303304594ff4e1ea012faf, type: 3}
+  strongBeatClip: {fileID: 8300000, guid: 1fd0753522303304594ff4e1ea012faf, type: 3}
+  regularBeatClip: {fileID: 8300000, guid: f7fb4f43149f57148bf9f0bf464ef55c, type: 3}
   _audioSource: {fileID: 179243326}
   _bpm: 120
   _beatsPerMeasure: 4
@@ -6329,7 +6329,7 @@ MonoBehaviour:
     volume: 1
     description: 
     processed: 0
-  - sample: {fileID: 8300000, guid: b360f40107351e442aa9fb18c2cabf3d, type: 3}
+  - sample: {fileID: 8300000, guid: cf0d05899939201438ba91a03eb81a2c, type: 3}
     measureNumber: 31
     beatNumber: 1
     volume: 1
@@ -15172,8 +15172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scheduler: {fileID: 1215149684}
   stateManager: {fileID: 1215149686}
-  strongBeatClip: {fileID: 8300000, guid: 715a6528887e11a44b149f105bc17862, type: 3}
-  regularBeatClip: {fileID: 8300000, guid: 33016d41ac8ef3d439a5fc9f257f8f8f, type: 3}
+  strongBeatClip: {fileID: 8300000, guid: 33016d41ac8ef3d439a5fc9f257f8f8f, type: 3}
+  regularBeatClip: {fileID: 8300000, guid: 715a6528887e11a44b149f105bc17862, type: 3}
   _audioSource: {fileID: 1215149680}
   _bpm: 120
   _beatsPerMeasure: 4
@@ -26255,8 +26255,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scheduler: {fileID: 2006987196}
   stateManager: {fileID: 2006987198}
-  strongBeatClip: {fileID: 8300000, guid: 1d9f403a6b52fa1469f6275faf2f5005, type: 3}
-  regularBeatClip: {fileID: 8300000, guid: b1507a01cc3bb544097483c4d1383561, type: 3}
+  strongBeatClip: {fileID: 8300000, guid: b1507a01cc3bb544097483c4d1383561, type: 3}
+  regularBeatClip: {fileID: 8300000, guid: 1d9f403a6b52fa1469f6275faf2f5005, type: 3}
   _audioSource: {fileID: 2006987192}
   _bpm: 120
   _beatsPerMeasure: 4
